@@ -1,8 +1,9 @@
 const db = require("./app/models");
-
 db.mongoose.connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
 })
     .then(() => {
         console.log("Connected to the database!");
@@ -14,13 +15,37 @@ db.mongoose.connect(db.url, {
     });
 
 const express = require('express');
+const dotenv = require('dotenv');
+const auth = require('./app/middleware/auth')
+
 
 const app = express();
+
+app.use(express.json())
+
+dotenv.config();
 
 require('./app/routes/user.routes')(app);
 
 
-const port = 3000;
+app.get("/welcome", auth, (req, res) => {
+    res.status(200).send("Welcome 🙌 ");
+});
+
+app.use("*", (req, res) => {
+    res.status(404).json({
+        success: "false",
+        message: "Page not found",
+        error: {
+            statusCode: 404,
+            message: "You reached a route that is not defined on this server",
+        },
+    });
+});
+
+
+
+const port = process.env.Port || 5000
 
 app.get('/', (req, res) => {
     res.json({ message: "Welcome to Upgrad Ecommerce  application development." });

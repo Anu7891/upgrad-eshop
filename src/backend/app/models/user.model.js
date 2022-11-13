@@ -1,6 +1,7 @@
 // const mongoose=require('mongoose')
 
 const validator = require('validator');
+const bcrypt = require('bcryptjs')
 
 const User = (mongoose) => {
 
@@ -9,6 +10,11 @@ const User = (mongoose) => {
         _id: Number,
         firstName: String,
         lastName: String,
+        isAdmin: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
         name: {
             type: String,
             required: true,
@@ -46,6 +52,22 @@ const User = (mongoose) => {
         //   resetPasswordExpire:Date
 
     }, { timestamp: true });
+
+    //For Encryption of password 
+    userSchema.pre("save", async function (next) {
+        if (this.isModified("password")) {
+            next();
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+    });
+
+    //For decrypting the password
+
+    userSchema.methods.matchPassword = async function (enteredPassword) {
+        return await bcrypt.compare(enteredPassword, this.password);
+    }
 
     const User = mongoose.model("users", userSchema);
 
