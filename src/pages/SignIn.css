@@ -1,0 +1,19 @@
+.container {
+  height: 60px;
+  background-color: #1976d2;
+  color: white;
+}
+
+.cart_icon {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.upgrade_text {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+.header_right {
+  margin-left: 90%;
+  margin-top: -28px;
+}
