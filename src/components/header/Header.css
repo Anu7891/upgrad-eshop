@@ -1,0 +1,32 @@
+.header_left {
+  display: flex;
+}
+.upgrade_text {
+  margin-left: 10px;
+}
+
+.search {
+  margin-left: 25%;
+}
+
+.header_right {
+  display: flex;
+  margin-left: 26%;
+  gap: 26px;
+}
+.home {
+  margin-top: 3px;
+}
+
+.add_product {
+  margin-top: 3px;
+}
+.logout {
+  background-color: red;
+  height: 30px;
+  width: 70px;
+  border-radius: 5px;
+}
+.logout_btn {
+  padding: 2px;
+}
