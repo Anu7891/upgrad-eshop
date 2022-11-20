@@ -8,6 +8,11 @@ module.exports = (app) => {
     //SignUp route a new user 
 
     router.get('/products', productController.getAllProducts);
+
+    router.get('/products/categories', productController.getProductCategory);
+
+    router.get('/products/:id', productController.getProductByID);
+
     app.use("/api", router);
 
 }

@@ -1,9 +1,10 @@
+
 const db = require("./app/models");
+
 db.mongoose.connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
+    useUnifiedTopology: true
+
 })
     .then(() => {
         console.log("Connected to the database!");
@@ -26,22 +27,23 @@ app.use(express.json())
 dotenv.config();
 
 require('./app/routes/user.routes')(app);
+require('./app/routes/product.routes')(app);
 
 
 app.get("/welcome", auth, (req, res) => {
     res.status(200).send("Welcome 🙌 ");
 });
 
-app.use("*", (req, res) => {
-    res.status(404).json({
-        success: "false",
-        message: "Page not found",
-        error: {
-            statusCode: 404,
-            message: "You reached a route that is not defined on this server",
-        },
-    });
-});
+// app.use("*", (req, res) => {
+//     res.status(404).json({
+//         success: "false",
+//         message: "Page not found",
+//         error: {
+//             statusCode: 404,
+//             message: "You reached a route that is not defined on this server",
+//         },
+//     });
+// });
 
 
 
